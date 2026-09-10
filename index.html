@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="solar">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Days Left</title>
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/solar.css">
+<link rel="stylesheet" href="css/cyber.css">
+<link rel="stylesheet" href="css/blackhole.css">
+</head>
+<body>
+
+  <button id="themeToggle" type="button" aria-label="Switch to Cyberpunk theme">
+    <svg class="btn-icon btn-icon-cyber" viewBox="0 0 100 100" aria-hidden="true">
+      <polygon points="50,6 90,28 90,72 50,94 10,72 10,28" fill="none" stroke="#ff2bd6" stroke-width="4"/>
+      <path d="M56 18 L34 54 L48 54 L42 84 L70 44 L54 44 Z" fill="#37f2ff" stroke="#ff2bd6" stroke-width="2"/>
+    </svg>
+    <svg class="btn-icon btn-icon-solar" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="42" r="18" fill="#D9A441"/>
+      <g stroke="#D9A441" stroke-width="4" stroke-linecap="round">
+        <line x1="50" y1="6" x2="50" y2="16"/>
+        <line x1="50" y1="68" x2="50" y2="78"/>
+        <line x1="14" y1="42" x2="24" y2="42"/>
+        <line x1="76" y1="42" x2="86" y2="42"/>
+        <line x1="24" y1="16" x2="31" y2="23"/>
+        <line x1="76" y1="16" x2="69" y2="23"/>
+      </g>
+      <path d="M50 54 C64 58 67 72 55 82 C50 87 43 89 41 89 C41 89 39 82 41 75 C37 65 41 58 50 54 Z" fill="#5B8C5A"/>
+    </svg>
+    <svg class="btn-icon btn-icon-blackhole" viewBox="0 0 100 100" aria-hidden="true">
+      <ellipse cx="50" cy="50" rx="46" ry="15" fill="none" stroke="#ffb677" stroke-width="3"/>
+      <circle cx="50" cy="50" r="20" fill="#000" stroke="#f2ecff" stroke-width="1.5"/>
+    </svg>
+  </button>
+
+  <!-- reusable shapes, drawn entirely in code -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="gearShape" viewBox="0 0 100 100">
+        <g fill="currentColor">
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(0 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(36 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(72 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(108 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(144 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(180 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(216 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(252 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(288 50 50)"/>
+          <rect x="45" y="2" width="10" height="16" rx="2" transform="rotate(324 50 50)"/>
+          <circle cx="50" cy="50" r="30"/>
+        </g>
+        <circle cx="50" cy="50" r="24" fill="none" stroke="rgba(255,255,255,.32)" stroke-width="2"/>
+        <circle cx="50" cy="50" r="11" fill="rgba(0,0,0,.34)"/>
+        <circle cx="50" cy="30" r="4" fill="rgba(0,0,0,.26)"/>
+        <circle cx="69" cy="44" r="4" fill="rgba(0,0,0,.26)"/>
+        <circle cx="62" cy="66" r="4" fill="rgba(0,0,0,.26)"/>
+        <circle cx="38" cy="66" r="4" fill="rgba(0,0,0,.26)"/>
+        <circle cx="31" cy="44" r="4" fill="rgba(0,0,0,.26)"/>
+      </symbol>
+
+      <symbol id="leafShape" viewBox="0 0 100 120">
+        <path fill="currentColor" d="M50 4 C82 18 92 56 66 86 C60 96 50 112 50 112 C50 112 40 96 34 86 C8 56 18 18 50 4 Z"/>
+        <path fill="none" stroke="rgba(0,0,0,.24)" stroke-width="2" stroke-linecap="round" d="M50 14 L50 100 M50 34 L68 24 M50 34 L32 24 M50 58 L72 50 M50 58 L28 50 M50 82 L64 76 M50 82 L36 76"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <!-- big lotus leaf + flower, anchored to the very bottom of the page -->
+  <div class="lotus-leaf solar-only" aria-hidden="true">
+    <svg class="lotus-leaf-svg" viewBox="0 0 1600 420" preserveAspectRatio="xMidYMax meet">
+      <defs>
+        <linearGradient id="lotusGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#9FC088"/>
+          <stop offset="55%" stop-color="#5B8C5A"/>
+          <stop offset="100%" stop-color="#2F5233"/>
+        </linearGradient>
+      </defs>
+      <path fill="url(#lotusGrad)" d="M0,420 L0,260 C120,120 300,40 500,40 C650,40 700,90 800,90 C900,90 950,40 1100,40 C1300,40 1480,120 1600,260 L1600,420 Z"/>
+      <path class="lotus-veins" d="M800,400 L150,230 M800,400 L330,110 M800,400 L520,55 M800,400 L700,75 M800,400 L800,90 M800,400 L900,75 M800,400 L1080,55 M800,400 L1270,110 M800,400 L1450,230"/>
+      <ellipse cx="480" cy="120" rx="260" ry="90" fill="rgba(255,247,224,.18)"/>
+    </svg>
+    <svg class="lotus-flower" viewBox="0 0 240 240" aria-hidden="true">
+      <defs>
+        <linearGradient id="petalOuter" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#c2447a"/>
+          <stop offset="55%" stop-color="#f28bb0"/>
+          <stop offset="100%" stop-color="#ffd9ec"/>
+        </linearGradient>
+        <linearGradient id="petalInner" x1="0" y1="1" x2="0" y2="0">
+          <stop offset="0%" stop-color="#e56fa3"/>
+          <stop offset="60%" stop-color="#ffc4de"/>
+          <stop offset="100%" stop-color="#fff3f8"/>
+        </linearGradient>
+        <radialGradient id="lotusPod" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stop-color="#fbe9a8"/>
+          <stop offset="100%" stop-color="#c9a13a"/>
+        </radialGradient>
+      </defs>
+      <g id="petalsOuter"></g>
+      <g id="petalsInner"></g>
+      <circle cx="120" cy="150" r="19" fill="url(#lotusPod)" stroke="#8a6a1e" stroke-width="1.5"/>
+      <g id="lotusStamens" stroke="#c9a13a" stroke-width="2" stroke-linecap="round"></g>
+    </svg>
+  </div>
+
+  <!-- slow big gears + drifting leaves, behind everything else -->
+  <div id="bgLayer" class="solar-only" aria-hidden="true">
+    <svg class="bg-gear g-tl-big"><use href="#gearShape"></use></svg>
+    <svg class="bg-gear g-tl-small"><use href="#gearShape"></use></svg>
+    <svg class="bg-gear g-br-big"><use href="#gearShape"></use></svg>
+    <svg class="bg-gear g-br-small"><use href="#gearShape"></use></svg>
+    <svg class="bg-gear g-mid-left"><use href="#gearShape"></use></svg>
+    <svg class="bg-gear g-tr-sun"><use href="#gearShape"></use></svg>
+  </div>
+
+  <!-- cyberpunk night scene -->
+  <div id="cyberScene" class="cyber-only" aria-hidden="true">
+    <div id="cyberStars"></div>
+    <div id="moon" class="moon">
+      <span class="moon-crater" style="width:22px;height:22px;top:18%;left:22%;"></span>
+      <span class="moon-crater" style="width:13px;height:13px;top:55%;left:60%;"></span>
+      <span class="moon-crater" style="width:9px;height:9px;top:34%;left:66%;"></span>
+      <span class="moon-crater" style="width:16px;height:16px;top:68%;left:30%;"></span>
+    </div>
+    <div id="cyberSkyline" class="cyber-skyline"></div>
+    <div class="cyber-grid"></div>
+    <svg class="cyber-bike" viewBox="0 0 400 220" aria-hidden="true">
+      <ellipse cx="195" cy="187" rx="190" ry="14" fill="rgba(255,43,214,.14)"/>
+
+      <!-- rear wheel -->
+      <circle cx="88" cy="150" r="42" fill="#0b0710" stroke="#37f2ff" stroke-width="4"/>
+      <circle cx="88" cy="150" r="26" fill="none" stroke="#ff2bd6" stroke-width="2"/>
+      <g id="wheelSpokesRear" stroke="#ff2bd6" stroke-width="2" stroke-linecap="round"></g>
+      <circle cx="88" cy="150" r="7" fill="#ff2bd6"/>
+
+      <!-- front wheel -->
+      <circle cx="300" cy="150" r="42" fill="#0b0710" stroke="#37f2ff" stroke-width="4"/>
+      <circle cx="300" cy="150" r="26" fill="none" stroke="#ff2bd6" stroke-width="2"/>
+      <g id="wheelSpokesFront" stroke="#ff2bd6" stroke-width="2" stroke-linecap="round"></g>
+      <circle cx="300" cy="150" r="7" fill="#ff2bd6"/>
+
+      <!-- rear swingarm + exhaust + tail light -->
+      <line x1="140" y1="122" x2="95" y2="148" stroke="#37f2ff" stroke-width="6" stroke-linecap="round"/>
+      <path d="M150,158 C120,164 90,166 63,161 L63,170 C93,176 130,174 156,166 Z" fill="#1a1420" stroke="#ff2bd6" stroke-width="1.5"/>
+      <circle cx="55" cy="119" r="4" fill="#ff2b4a" style="filter:drop-shadow(0 0 5px #ff2b4a)"/>
+
+      <!-- engine block -->
+      <rect x="128" y="126" width="72" height="36" rx="9" fill="#150f22" stroke="#ff2bd6" stroke-width="2"/>
+      <line x1="142" y1="126" x2="142" y2="162" stroke="#37f2ff" stroke-width="2"/>
+      <line x1="156" y1="126" x2="156" y2="162" stroke="#37f2ff" stroke-width="2"/>
+      <line x1="170" y1="126" x2="170" y2="162" stroke="#37f2ff" stroke-width="2"/>
+      <line x1="184" y1="126" x2="184" y2="162" stroke="#37f2ff" stroke-width="2"/>
+
+      <!-- front fork -->
+      <line x1="226" y1="104" x2="288" y2="148" stroke="#ff2bd6" stroke-width="5" stroke-linecap="round"/>
+      <line x1="234" y1="108" x2="296" y2="148" stroke="#ff2bd6" stroke-width="5" stroke-linecap="round"/>
+
+      <!-- main body: tail, seat, tank -->
+      <path d="M70,135 C58,132 48,126 52,118 C56,104 66,96 78,98 C95,92 108,90 120,90 C140,84 155,74 165,72 C182,70 198,74 205,82 C215,90 220,96 222,100 C226,108 230,114 232,120 L232,138 C210,132 190,130 170,132 L110,134 C95,133 82,133 70,135 Z" fill="#150f22" stroke="#ff2bd6" stroke-width="2.5"/>
+
+      <!-- handlebar -->
+      <path d="M226,100 L212,88 L202,91" fill="none" stroke="#37f2ff" stroke-width="4" stroke-linecap="round"/>
+
+      <!-- windscreen -->
+      <path d="M220,90 L238,68 L248,73 L232,96 Z" fill="rgba(55,242,255,.22)" stroke="#37f2ff" stroke-width="1.5"/>
+
+      <!-- headlight nacelle -->
+      <ellipse cx="234" cy="100" rx="15" ry="12" fill="#150f22" stroke="#37f2ff" stroke-width="2"/>
+      <circle class="bike-headlight" cx="238" cy="98" r="6.5" fill="#fff6d8" style="filter:drop-shadow(0 0 7px #fff6d8)"/>
+    </svg>
+    <div class="cyber-scanlines"></div>
+  </div>
+  <div id="hackFlash" class="cyber-only hack-flash" aria-hidden="true"></div>
+
+  <!-- Decensus Ad Nihilum: black hole scene -->
+  <div id="blackholeScene" class="blackhole-only" aria-hidden="true">
+    <div id="voidStars"></div>
+    <div class="event-horizon">
+      <div class="accretion-disk"></div>
+      <div class="accretion-disk disk-2"></div>
+      <div class="horizon-core"></div>
+    </div>
+  </div>
+  <div id="voidFlash" class="blackhole-only hack-flash" aria-hidden="true"></div>
+
+  <div class="card">
+    <div class="medallion" aria-hidden="true">
+      <svg class="bezel" viewBox="0 0 200 200">
+        <circle class="bezel-ring" cx="100" cy="100" r="94"/>
+        <circle class="bezel-ring-inner" cx="100" cy="100" r="78"/>
+        <g id="bezelTicks"></g>
+      </svg>
+      <div class="medallion-face">
+        <div class="icon-row">
+          <svg class="leaf-left"><use href="#leafShape"></use></svg>
+          <span class="gear-cluster">
+            <svg class="gear-front-big"><use href="#gearShape"></use></svg>
+            <svg class="gear-front-mini"><use href="#gearShape"></use></svg>
+          </span>
+          <svg class="leaf-right"><use href="#leafShape"></use></svg>
+        </div>
+        <p class="eyebrow" id="eyebrowText">counting down to</p>
+        <div class="count" id="dayCount">0</div>
+        <div class="label" id="labelText">days left</div>
+        <div class="divider"></div>
+        <p class="breakdown" id="breakdown"></p>
+        <p class="until" id="untilLine"></p>
+      </div>
+    </div>
+
+    <div class="quote-divider" aria-hidden="true">
+      <span class="line"></span>
+      <svg viewBox="0 0 100 120"><use href="#leafShape"></use></svg>
+      <span class="line"></span>
+    </div>
+    <p class="quote-eyebrow" id="quoteEyebrowText">a seed for today</p>
+    <div class="quotes" id="quoteBox" tabindex="0" role="button" aria-label="Show another thought">
+      <p id="quoteText" aria-live="polite"></p>
+    </div>
+    <p class="quote-hint" id="quoteHintText">tap to grow another thought</p>
+  </div>
+
+
+<script src="js/theme.js"></script>
+<script src="js/scene-shapes.js"></script>
+<script src="js/solar-effects.js"></script>
+<script src="js/cyber-effects.js"></script>
+<script src="js/blackhole-effects.js"></script>
+<script src="js/interactions.js"></script>
+</body>
+</html>
