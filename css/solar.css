@@ -1,0 +1,83 @@
+  /* ---------- big lotus leaf + flower, bottom of page ---------- */
+  .lotus-leaf{
+    position:fixed; left:50%; bottom:-30px; transform:translateX(-50%);
+    width:min(1800px,190vw); z-index:0; pointer-events:none;
+    filter:drop-shadow(0 -10px 26px rgba(34,51,31,.22));
+  }
+  .lotus-leaf-svg{ display:block; width:100%; height:auto; }
+  .lotus-veins{ stroke:rgba(34,51,31,.28); stroke-width:2.4; stroke-linecap:round; }
+  .lotus-flower{
+    position:absolute; left:50%; top:60%; transform:translate(-50%,-32%);
+    width:min(920px,104vw); height:auto;
+    filter:drop-shadow(0 14px 30px rgba(120,20,60,.35));
+    animation:lotusBreathe 6s ease-in-out infinite;
+  }
+  @keyframes lotusBreathe{
+    0%,100%{ transform:translate(-50%,-32%) scale(1); }
+    50%{ transform:translate(-50%,-32%) scale(1.03); }
+  }
+
+  /* ---------- background gears & leaves ---------- */
+  .bg-gear{ position:fixed; z-index:1; pointer-events:none; }
+  .g-tl-big{ width:300px; height:300px; top:-90px; left:-90px; color:var(--moss); opacity:.16; animation:spin 110s linear infinite; }
+  .g-tl-small{ width:160px; height:160px; top:60px; left:150px; color:var(--fern); opacity:.20; animation:spinReverse 50s linear infinite; }
+  .g-br-big{ width:320px; height:320px; bottom:-100px; right:-100px; color:var(--moss); opacity:.15; animation:spinReverse 130s linear infinite; }
+  .g-br-small{ width:170px; height:170px; bottom:110px; right:150px; color:var(--fern); opacity:.20; animation:spin 60s linear infinite; }
+  .g-mid-left{ width:190px; height:190px; top:40%; left:-70px; color:var(--fern); opacity:.14; animation:spin 85s linear infinite; }
+  .g-tr-sun{ width:130px; height:130px; top:6%; right:5%; color:var(--sun); opacity:.22; animation:spinReverse 42s linear infinite; }
+
+  .bg-leaf{ position:fixed; z-index:1; pointer-events:none; animation:leafSway ease-in-out infinite alternate; filter:drop-shadow(0 2px 3px rgba(47,82,51,.18)); }
+  @keyframes leafSway{
+    from{ transform:translateY(0) rotate(var(--rot,0deg)); }
+    to{ transform:translateY(-16px) rotate(calc(var(--rot,0deg) + 10deg)); }
+  }
+
+  /* ---------- solarpunk click effect: glowing gear + leaf halo ---------- */
+  .click-fx{ position:fixed; left:0; top:0; width:0; height:0; pointer-events:none; z-index:9999; }
+  .hold-gear{
+    position:fixed; left:0; top:0; width:74px; height:74px; color:var(--glow-white);
+    z-index:9999; pointer-events:none;
+    transform:translate(-50%,-50%);
+  }
+  .hold-gear.intro{ animation:holdGearIntro .8s ease-out forwards; }
+  .hold-gear.loop{
+    animation:holdGearLoop .5s linear infinite;
+    filter:drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 32px #baffa0);
+  }
+  .hold-gear.leaving{ animation:holdGearLeave .35s ease-in forwards; }
+  @keyframes holdGearIntro{
+    0%   { transform:translate(-50%,-50%) rotate(0deg) scale(.4);
+           filter:drop-shadow(0 0 2px var(--glow)) drop-shadow(0 0 4px var(--glow)); opacity:1; }
+    40%  { transform:translate(-50%,-50%) rotate(340deg) scale(1);
+           filter:drop-shadow(0 0 9px var(--glow)) drop-shadow(0 0 20px #a6ff5e); }
+    100% { transform:translate(-50%,-50%) rotate(720deg) scale(1);
+           filter:drop-shadow(0 0 15px var(--glow)) drop-shadow(0 0 32px #baffa0); opacity:1; }
+  }
+  @keyframes holdGearLoop{
+    from{ transform:translate(-50%,-50%) rotate(0deg) scale(1); }
+    to{ transform:translate(-50%,-50%) rotate(360deg) scale(1); }
+  }
+  @keyframes holdGearLeave{
+    to{ transform:translate(-50%,-50%) rotate(420deg) scale(1.25); opacity:0; }
+  }
+  .click-halo{ position:absolute; left:0; top:0; width:0; height:0; animation:haloSpin 1.15s ease-out forwards; }
+  .halo-leaf{
+    position:absolute; left:0; top:0; width:22px; height:26px; color:var(--sprout);
+    transform:translate(-50%,-50%) rotate(var(--ang)) translateY(calc(-1 * var(--r)));
+    opacity:0; animation:haloLeafShow 1.15s ease-out forwards;
+    filter:drop-shadow(0 0 5px rgba(57,255,20,.55));
+  }
+  @keyframes haloSpin{ from{ transform:rotate(0deg) scale(.5); } to{ transform:rotate(150deg) scale(1.35); } }
+  @keyframes haloLeafShow{ 0%{ opacity:0; } 15%{ opacity:1; } 75%{ opacity:.85; } 100%{ opacity:0; } }
+
+  /* ---------- solarpunk hold escalation: growing screen crack + spiral curve ---------- */
+  .crack-overlay{ position:fixed; inset:0; z-index:50; pointer-events:none; }
+  .crack-line{ fill:none; stroke:rgba(34,51,31,.82); stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; filter:drop-shadow(0 0 1px rgba(255,255,255,.6)); }
+  .crack-branch{ stroke-width:1.4; opacity:.8; }
+  .spiral-curve{
+    position:fixed; z-index:45; pointer-events:none;
+    transform:translate(-50%,-50%);
+    filter:drop-shadow(0 0 6px rgba(217,164,65,.55));
+    overflow:visible;
+  }
+

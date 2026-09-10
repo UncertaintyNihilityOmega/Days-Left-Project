@@ -1,0 +1,127 @@
+  /* ---------- cyberpunk click effect: stationary red zones + hold-to-hack ---------- */
+  .cyber-zone{
+    position:fixed; z-index:3; pointer-events:none;
+    border-radius:6px;
+    box-shadow:
+      inset 10px 0 16px -6px var(--cyber-red),
+      inset -10px 0 16px -6px var(--cyber-red),
+      0 0 10px rgba(255,43,74,.32);
+    background:rgba(255,43,74,.04);
+    animation:zoneAppear .3s ease-out;
+    overflow:hidden;
+  }
+  .cyber-zone.leaving{ animation:zoneLeave .3s ease-in forwards; }
+  @keyframes zoneAppear{ from{ opacity:0; transform:scale(.85); } to{ opacity:1; transform:scale(1); } }
+  @keyframes zoneLeave{ to{ opacity:0; transform:scale(.9); } }
+  .cyber-zone-hold{
+    z-index:9999; transform:translate(-50%,-50%);
+    animation:zoneHoldAppear .3s ease-out;
+  }
+  @keyframes zoneHoldAppear{
+    from{ opacity:0; transform:translate(-50%,-50%) scale(.85); }
+    to{ opacity:1; transform:translate(-50%,-50%) scale(1); }
+  }
+  .cyber-zone-hold.leaving{ animation:zoneHoldLeave .3s ease-in forwards; }
+  @keyframes zoneHoldLeave{ to{ opacity:0; transform:translate(-50%,-50%) scale(.9); } }
+  .cyber-zone-bit{
+    position:absolute;
+    font-family:'Share Tech Mono', monospace; font-size:14px; font-weight:700;
+    color:var(--cyber-red); text-shadow:0 0 6px var(--cyber-red), 0 0 12px var(--cyber-red);
+    animation:zoneBitFlicker ease-in-out infinite;
+  }
+  @keyframes zoneBitFlicker{ 0%,100%{ opacity:.12; } 50%{ opacity:1; } }
+
+  .hack-label{ position:fixed; left:0; top:0; transform:translate(-50%,-50%); z-index:9999; pointer-events:none; animation:hackPop .2s ease-out; }
+  .hack-label.leaving{ animation:hackLeaveWrap .25s ease-in forwards; }
+  .hack-text{
+    display:inline-block; font-family:'Share Tech Mono',monospace; font-weight:700;
+    letter-spacing:.1em; font-size:1.1rem; color:var(--cyber-red);
+    text-shadow:0 0 8px var(--cyber-red), 0 0 20px var(--cyber-red);
+    animation:hackGlitch .9s steps(1) infinite;
+  }
+  @keyframes hackPop{ from{ transform:translate(-50%,-50%) scale(.6); opacity:0; } to{ transform:translate(-50%,-50%) scale(1); opacity:1; } }
+  @keyframes hackLeaveWrap{ to{ opacity:0; transform:translate(-50%,-50%) scale(1.15); } }
+  @keyframes hackGlitch{
+    0%,100%{ transform:translateX(0) skewX(0deg); opacity:1; }
+    20%{ transform:translateX(-2px) skewX(-4deg); opacity:.85; }
+    40%{ transform:translateX(2px) skewX(3deg); opacity:1; }
+    60%{ transform:translateX(-1px) skewX(0deg); opacity:.9; text-shadow:0 0 14px var(--cyber-red),0 0 4px #fff; }
+    80%{ transform:translateX(1px) skewX(2deg); opacity:1; }
+  }
+
+  /* ---------- cyberpunk night scene ---------- */
+  .cyber-star{ position:fixed; z-index:1; border-radius:50%; background:#fff; opacity:.6; animation:starTwinkle ease-in-out infinite alternate; pointer-events:none; }
+  @keyframes starTwinkle{ from{opacity:.12;} to{opacity:.9;} }
+
+  .moon{
+    position:fixed; top:44px; left:52px; width:min(210px,42vw); height:min(210px,42vw); z-index:1;
+    border-radius:50%; overflow:hidden; pointer-events:none;
+    background:radial-gradient(circle at 35% 30%, #fffdf0, #f3e9c9 55%, #d8c894 100%);
+    box-shadow:0 0 90px 30px rgba(255,250,220,.35), 0 0 190px 75px rgba(255,250,220,.15);
+    transition:background 3s ease, box-shadow 3s ease;
+  }
+  .moon.blood{
+    background:radial-gradient(circle at 35% 30%, #ff8a7a, #d1342a 55%, #7a1410 100%);
+    box-shadow:0 0 100px 36px rgba(255,50,30,.5), 0 0 210px 85px rgba(255,30,20,.28);
+  }
+  .moon-crater{ position:absolute; border-radius:50%; background:rgba(0,0,0,.09); }
+
+  .cyber-skyline{ position:fixed; left:0; right:0; bottom:0; height:230px; z-index:1; pointer-events:none; overflow:hidden; }
+  .cyber-building{ position:absolute; bottom:0; background:linear-gradient(180deg,#150f24,#0a0714); }
+  .cyber-window{ position:absolute; width:4px; height:6px; border-radius:1px; box-shadow:0 0 4px currentColor; opacity:.85; }
+
+  .cyber-grid{
+    position:fixed; left:0; right:0; bottom:0; height:40vh; z-index:2; pointer-events:none; overflow:hidden;
+    -webkit-mask-image:linear-gradient(to top, black 50%, transparent 100%);
+    mask-image:linear-gradient(to top, black 50%, transparent 100%);
+  }
+  .cyber-grid::before{
+    content:''; position:absolute; left:-50%; right:-50%; top:-10%; bottom:0;
+    background-image:
+      linear-gradient(rgba(255,43,214,.45) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(55,242,255,.4) 1px, transparent 1px);
+    background-size:72px 72px;
+    transform:perspective(320px) rotateX(62deg);
+    transform-origin:bottom center;
+    animation:gridScroll 5s linear infinite;
+  }
+  @keyframes gridScroll{ from{ background-position:0 0, 0 0; } to{ background-position:0 72px, 0 0; } }
+
+  .cyber-bike{
+    position:fixed; right:2.5%; bottom:3%; width:min(410px,46vw); height:auto; z-index:2; pointer-events:none;
+    filter:drop-shadow(0 0 12px rgba(255,43,214,.55)) drop-shadow(0 0 26px rgba(55,242,255,.28));
+  }
+  .cyber-bike .bike-headlight{ animation:headlightFlicker 3.4s ease-in-out infinite; }
+  @keyframes headlightFlicker{ 0%,100%{ opacity:1; } 92%{ opacity:1; } 94%{ opacity:.4; } 96%{ opacity:1; } }
+
+  .cyber-scanlines{
+    position:fixed; inset:0; z-index:6; pointer-events:none;
+    background:repeating-linear-gradient(to bottom, rgba(255,255,255,.035) 0px, rgba(255,255,255,.035) 1px, transparent 2px, transparent 4px);
+    mix-blend-mode:overlay; opacity:.55;
+  }
+
+  .cyber-column{
+    position:fixed; top:-45vh; left:0; z-index:1; pointer-events:none;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    font-family:'Share Tech Mono',monospace; font-size:15px; line-height:1;
+    color:var(--glow); text-shadow:0 0 6px var(--glow), 0 0 14px var(--glow);
+    -webkit-mask-image:linear-gradient(to bottom, transparent 0%, transparent 6%, rgba(0,0,0,.45) 26%, black 82%, black 100%);
+    mask-image:linear-gradient(to bottom, transparent 0%, transparent 6%, rgba(0,0,0,.45) 26%, black 82%, black 100%);
+    animation:columnFall linear forwards;
+  }
+  @keyframes columnFall{
+    from{ transform:translateY(0); opacity:.85; }
+    92%{ opacity:.85; }
+    to{ transform:translateY(150vh); opacity:0; }
+  }
+
+  .hack-flash{
+    position:fixed; inset:0; z-index:8; pointer-events:none;
+    background:radial-gradient(circle at 22% 15%, rgba(255,30,30,.4), rgba(120,0,0,.28) 55%, rgba(50,0,0,.42) 100%);
+    opacity:0; transition:opacity 1.2s ease;
+  }
+  .hack-flash.active{ opacity:1; }
+  [data-theme="blackhole"] .hack-flash{
+    background:radial-gradient(circle at 50% 18%, rgba(255,255,255,.4), rgba(185,140,255,.28) 45%, rgba(0,0,0,.55) 100%);
+  }
+
